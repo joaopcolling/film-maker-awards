@@ -84,23 +84,6 @@ Os testes garantem que os dados importados do CSV correspondem aos fornecidos na
 mvn test
 ```
 
-## Estrutura do Projeto
-```
-film-maker-awards/
-├── src/
-│   ├── main/
-│   │   ├── java/com/example/filmmakerawards/
-│   │   ├── resources/
-│   │   │   ├── application.properties
-│   │   │   ├── movielist.csv
-│   ├── test/
-│       ├── java/com/example/filmmakerawards/
-│       ├── integration/
-├── Dockerfile
-├── pom.xml
-├── README.md
-```
-
 ## Considerações Finais
 Esta API foi desenvolvida seguindo os requisitos técnicos do desafio, implementando um serviço RESTful no nível 2 da maturidade de Richardson. O código-fonte está disponível no repositório GitHub para revisão e execução.
 
