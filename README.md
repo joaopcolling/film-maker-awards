@@ -55,7 +55,7 @@ docker run -p 8080:8080 --rm film_maker_awards
 
 Para rodar com um arquivo CSV local:
 ```sh
-docker run -p 8080:8080 -v /caminho_do_csv_local:/app/csv/movielist.csv --rm film_maker_awards --csv.path=/app/csv/movielist.csv
+docker run -p 8080:8080 -v /caminho/para/movielist.csv:/app/csv/movielist.csv --rm film_maker_awards --csv.path=/app/csv/movielist.csv
 ```
 
 ## Banco de Dados H2
@@ -65,17 +65,17 @@ http://localhost:8080/h2-console
 ```
 Credenciais padrão:
 - **JDBC URL:** `jdbc:h2:mem:testdb`
-- **User:** `sa`
-- **Password:** (em branco)
+- **User:** `username`
+- **Password:** `password`
 
 ## Consumindo a API
 A API fornece um endpoint para obter os produtores com maior e menor intervalo entre prêmios:
 ```sh
-GET http://localhost:8080/api/producers/awards-interval
+GET http://localhost:8080/api/producers/awards
 ```
 Para testar via CLI:
 ```sh
-curl -X GET http://localhost:8080/api/producers/awards-interval
+curl -X GET http://localhost:8080/api/producers/awards
 ```
 
 ## Testes de Integração
