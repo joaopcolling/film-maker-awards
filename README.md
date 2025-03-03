@@ -64,7 +64,7 @@ A aplicação utiliza o banco de dados H2 em memória, acessível pelo navegador
 http://localhost:8080/h2-console
 ```
 Credenciais padrão:
-- **JDBC URL:** `jdbc:h2:mem:testdb`
+- **JDBC URL:** `dbc:h2:mem:filmmakerawardsdb`
 - **User:** `username`
 - **Password:** `password`
 
