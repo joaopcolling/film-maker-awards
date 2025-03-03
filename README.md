@@ -71,11 +71,11 @@ Credenciais padrão:
 ## Consumindo a API
 A API fornece um endpoint para obter os produtores com maior e menor intervalo entre prêmios:
 ```sh
-GET http://localhost:8080/api/producers/awards
+GET http://localhost:8080/awards
 ```
 Para testar via CLI:
 ```sh
-curl -X GET http://localhost:8080/api/producers/awards
+curl -X GET http://localhost:8080/awards
 ```
 
 ## Testes de Integração
