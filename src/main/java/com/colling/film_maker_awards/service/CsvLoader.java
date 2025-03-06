@@ -1,4 +1,4 @@
-package com.colling.film_maker_awards;
+package com.colling.film_maker_awards.service;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -10,13 +10,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.colling.film_maker_awards.service.ImportMoviesService;
-
 import jakarta.annotation.PostConstruct;
+
+
 
 @Component
 public class CsvLoader {
@@ -26,22 +28,24 @@ public class CsvLoader {
     @Autowired
     private ImportMoviesService importMoviesService;
 
+    Logger logger = LoggerFactory.getLogger(CsvLoader.class);
+
+
     @PostConstruct
     public void init() {
-        System.out.println("🔍 Caminho do CSV recebido: " + csvPath);
+        logger.info("Caminho do CSV recebido: " + csvPath);
 
         if (csvPath == null || csvPath.isBlank()) {
-            System.err.println("❌ Caminho do CSV não informado! Use --csv.path=<absolute_path> ou classpath:<file>");
+            logger.error("Caminho do CSV não informado! Use --csv.path=<absolute_path> ou classpath:<file>");
             return;
         }
 
         try {
             Reader reader = getCsvReader(csvPath);
-            System.out.println("📂 Arquivo carregado com sucesso: " + csvPath);
+            logger.info("Arquivo carregado com sucesso: " + csvPath);
             importMoviesService.importMovieRegisters(reader);
         } catch (Exception e) {
-            System.err.println("❌ Erro ao carregar arquivo CSV: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Erro ao carregar arquivo CSV: " + e.getMessage());
         }
     }
 
@@ -53,14 +57,14 @@ public class CsvLoader {
         // Check if the path exists as a file (for volume mounting)
         Path path = Paths.get(filePath.trim());
         if (Files.exists(path) && Files.isRegularFile(path)) {
-            System.out.println("⏳ Carregando arquivo informado: " + filePath);
+            logger.info("Carregando arquivo informado: " + filePath);
             return Files.newBufferedReader(path, StandardCharsets.UTF_8);
         }
 
         if (filePath.startsWith("classpath:")) {
             // Lendo do Classpath
             String classpathLocation = filePath.replace("classpath:", "").trim();
-            System.out.println("⏳ Carregando arquivo default: " + classpathLocation);
+            logger.info("Carregando arquivo default: " + classpathLocation);
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(classpathLocation);
             if (inputStream == null) {
                 throw new FileNotFoundException("Arquivo não encontrado no classpath: " + classpathLocation);
