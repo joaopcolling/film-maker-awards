@@ -79,7 +79,9 @@ curl -X GET http://localhost:8080/awards
 ```
 
 ## Testes de Integração
-Os testes garantem que os dados importados do CSV correspondem aos fornecidos na proposta. Para rodar os testes:
+Os testes garantem que os dados importados do CSV correspondem aos fornecidos na proposta.
+Também validam o retorno da API para os mesmos dados fornecidos.
+Para rodar os testes:
 ```sh
 mvn test
 ```

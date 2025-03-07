@@ -18,11 +18,8 @@ import com.colling.film_maker_awards.service.dto.GroupFilmMakerArwardsDTO;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FilmMakerAwardsTest {
 
-
     @Autowired
     private FilmMakerAwardsService filmMakerAwardsService;
-
-
 
     @Test
     public void testDefaultCsv(){
