@@ -9,21 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.colling.film_maker_awards.service.FilmMakerAwardsService;
+import com.colling.film_maker_awards.service.AwardsService;
 import com.colling.film_maker_awards.service.dto.FilmMakerAwardDTO;
 import com.colling.film_maker_awards.service.dto.GroupFilmMakerArwardsDTO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class FilmMakerAwardsTest {
+public class AwardsServiceTest {
 
     @Autowired
-    private FilmMakerAwardsService filmMakerAwardsService;
+    private AwardsService awardsService;
 
     @Test
     public void testDefaultCsv(){
-        GroupFilmMakerArwardsDTO awards = filmMakerAwardsService.getAwards();
+        GroupFilmMakerArwardsDTO awards = awardsService.getAwards();
 
         assertNotNull(awards);
         assertNotNull(awards.getMin());

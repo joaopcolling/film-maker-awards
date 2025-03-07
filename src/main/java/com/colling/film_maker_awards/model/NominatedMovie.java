@@ -2,19 +2,26 @@ package com.colling.film_maker_awards.model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-
 @Entity
 @Table(name = "nominated_movie", indexes = @Index(name="INDEX_MOVIE_YEAR", columnList = "MOVIE_YEAR"))
 public class NominatedMovie {

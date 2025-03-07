@@ -3,11 +3,9 @@ package com.colling.film_maker_awards.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.io.Reader;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import com.colling.film_maker_awards.model.NominatedMovie;
 import com.colling.film_maker_awards.model.Producer;
 import com.colling.film_maker_awards.model.Studio;
@@ -16,11 +14,9 @@ import com.colling.film_maker_awards.repository.ProducerRepository;
 import com.colling.film_maker_awards.repository.StudioRepository;
 import com.colling.film_maker_awards.service.dto.ImportMovieDTO;
 
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.CsvToBeanBuilder;
 
 @Service
-public class ImportMoviesService {
+public class ImportMovieService  {
 
     @Autowired
     private NominatedMovieRepository nominatedMovieRepository;
@@ -32,29 +28,20 @@ public class ImportMoviesService {
     private StudioRepository studioRepository;
 
 
-    public void importMovieRegisters(Reader reader) throws Exception {
-        List<ImportMovieDTO> csvRegisters = this.readCsvRegisters(reader);
-        Set<NominatedMovie> entities = convertToEntity(csvRegisters);
+    public void importMovieRegisters(List<ImportMovieDTO> registers) {
+        Set<NominatedMovie> entities = convertToEntity(registers);
         saveAll(entities);
     }
 
-    public List<ImportMovieDTO> readCsvRegisters(Reader reader) throws Exception { 
-        CsvToBean<ImportMovieDTO> cb = new CsvToBeanBuilder<ImportMovieDTO>(reader)
-            .withType(ImportMovieDTO.class)
-            .withSeparator(';')
-            .withSkipLines(1)
-            .build();
-        return cb.parse();  
-    }
 
-    private Set<NominatedMovie> convertToEntity(List<ImportMovieDTO> csvRegisters) {
-        return csvRegisters.stream()
-            .map(csvRegister -> NominatedMovie.builder()
-                .movieYear(csvRegister.getYear())
-                .title(csvRegister.getTitle())
-                .studios(extractStudios(csvRegister.getStudios()))
-                .producers(extractProducers(csvRegister.getProducers()))
-                .winner("yes".equalsIgnoreCase(csvRegister.getWinner()))
+    private Set<NominatedMovie> convertToEntity(List<ImportMovieDTO> registers) {
+        return registers.stream()
+            .map(register -> NominatedMovie.builder()
+                .movieYear(register.getYear())
+                .title(register.getTitle())
+                .studios(extractStudios(register.getStudios()))
+                .producers(extractProducers(register.getProducers()))
+                .winner("yes".equalsIgnoreCase(register.getWinner()))
                 .build())
             .collect(Collectors.toSet());
     }
